@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Club Reina · Reinasoft Salón</title>
+<meta name="description" content="Únete al Club Reina de Reinasoft Salón y recibe beneficios en tu cumpleaños y recordatorios de tu próxima cita.">
+<meta property="og:title" content="Únete al Club Reina 👑 · Reinasoft Salón">
+<meta property="og:description" content="Completa tus datos en 1 minuto y recibe beneficios exclusivos.">
+<meta name="theme-color" content="#0E0B0C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== Marca Reinasoft (colores tomados de la web) ===== */
+:root{
+  --coral:#FC737B;      /* color principal de marca */
+  --coral-dark:#E86B72;
+  --black:#0E0B0C;      /* fondo oscuro de la web */
+  --blush:#FFE3E5;      /* franja rosada clara de la web */
+  --white:#FFFFFF;
+  --ink:#0E0B0C;
+  --muted:#6B6466;
+  --line:#EADCDD;
+  --ok:#25D366;         /* verde WhatsApp */
+  --radius:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Manrope',system-ui,sans-serif;color:var(--white);
+  background:var(--black);
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{min-height:100dvh;display:flex;flex-direction:column;max-width:560px;margin:0 auto}
+
+/* Header blanco como la web */
+header{background:var(--white);display:flex;align-items:center;justify-content:center;padding:14px 16px}
+header img{height:34px;width:auto}
+.topbar{background:var(--black);color:#d9d2d3;font-size:12px;text-align:center;padding:7px 10px;border-bottom:1px solid #2a2425}
+
+/* Progreso gamificado */
+.progress{padding:18px 20px 6px}
+.progress-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.level{font-family:'Oswald',sans-serif;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--coral)}
+.points{display:flex;align-items:center;gap:6px;font-weight:800;font-size:14px;background:#1d1718;border:1px solid #3a2f31;padding:5px 11px;border-radius:99px}
+.points svg{width:16px;height:16px;fill:var(--coral)}
+.points.bump{animation:bump .5s ease}
+@keyframes bump{40%{transform:scale(1.18);border-color:var(--coral)}}
+.bar{height:10px;border-radius:99px;background:#241d1f;overflow:hidden;position:relative}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--coral),#ff9aa0);border-radius:99px;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.dots{display:flex;justify-content:space-between;margin-top:8px}
+.dots span{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#241d1f;border:1px solid #3a2f31;transition:.3s}
+.dots span svg{width:13px;height:13px;fill:#5a4e50;transition:.3s}
+.dots span.done{background:var(--coral);border-color:var(--coral)}
+.dots span.done svg{fill:var(--black)}
+
+/* Pasos */
+main{flex:1;padding:10px 20px 24px;position:relative}
+.step{display:none;animation:in .45s ease both}
+.step.active{display:block}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.eyebrow{font-family:'Oswald',sans-serif;color:var(--coral);letter-spacing:.18em;text-transform:uppercase;font-size:13px;margin:14px 0 8px}
+h1,h2{font-family:'Oswald',sans-serif;text-transform:uppercase;line-height:1;letter-spacing:.01em}
+h1{font-size:46px}
+h2{font-size:34px;margin-bottom:8px}
+h1 em,h2 em{font-style:normal;color:var(--coral)}
+.lead{color:#cfc7c8;font-size:16px;line-height:1.5;margin:12px 0 22px}
+
+/* Tarjeta de bienvenida */
+.perks{display:grid;gap:10px;margin:6px 0 26px}
+.perk{display:flex;gap:12px;align-items:center;background:#171213;border:1px solid #2c2426;border-radius:14px;padding:12px 14px}
+.perk .ic{width:38px;height:38px;flex:none;border-radius:11px;background:var(--blush);display:grid;place-items:center}
+.perk .ic svg{width:20px;height:20px;stroke:var(--black);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.perk b{display:block;font-size:15px}
+.perk small{color:#a99fa1;font-size:13px}
+
+/* Campos */
+.field{margin-bottom:16px}
+label.lbl{display:block;font-weight:700;font-size:14px;margin-bottom:7px;color:#efe9ea}
+label.lbl span{color:#8d8385;font-weight:500}
+.input{
+  width:100%;font:inherit;font-size:17px;color:var(--ink);background:var(--white);
+  border:2px solid transparent;border-radius:14px;padding:15px 16px;outline:none;transition:.2s;
+  -webkit-appearance:none;appearance:none
+}
+.input:focus{border-color:var(--coral);box-shadow:0 0 0 4px rgba(252,115,123,.25)}
+.input.err{border-color:#ff4d5a}
+.msg{color:#ff8b93;font-size:13px;margin-top:6px;min-height:0;display:none}
+.msg.show{display:block}
+.phone{display:flex;gap:8px}
+.phone .pre{flex:none;display:flex;align-items:center;gap:6px;background:#1d1718;border:1px solid #3a2f31;border-radius:14px;padding:0 14px;font-weight:700}
+.row3{display:grid;grid-template-columns:1fr 1.4fr 1.1fr;gap:8px}
+select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230E0B0C' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:16px;padding-right:34px}
+
+/* Chips / tarjetas seleccionables */
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chips.one{grid-template-columns:1fr}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip label{
+  display:flex;flex-direction:column;gap:3px;min-height:64px;justify-content:center;
+  background:#171213;border:2px solid #2c2426;border-radius:14px;padding:12px 14px;cursor:pointer;transition:.18s;
+  font-weight:700;font-size:15px;user-select:none
+}
+.chip label small{font-weight:500;color:#a99fa1;font-size:12.5px}
+.chip label:active{transform:scale(.98)}
+.chip input:checked+label{background:var(--coral);border-color:var(--coral);color:var(--black)}
+.chip input:checked+label small{color:#3a1c1e}
+.chip input:focus-visible+label{box-shadow:0 0 0 4px rgba(252,115,123,.35)}
+.chip label .tick{position:absolute;top:10px;right:10px;width:18px;height:18px;border-radius:50%;border:2px solid #4a3e40;transition:.18s}
+.chip input:checked+label .tick{border-color:var(--black);background:var(--black) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FC737B' stroke-width='4'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center/11px no-repeat}
+.sub{font-weight:700;font-size:14px;margin:18px 0 9px;color:#efe9ea}
+
+/* Badge de edad / tip */
+.badge{display:none;align-items:center;gap:10px;background:var(--blush);color:var(--black);border-radius:14px;padding:12px 14px;margin-top:4px;font-size:14px;font-weight:600}
+.badge.show{display:flex;animation:in .35s ease}
+.badge svg{width:22px;height:22px;flex:none;stroke:var(--coral-dark);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* Consentimientos */
+.check{display:flex;gap:12px;align-items:flex-start;background:#171213;border:1px solid #2c2426;border-radius:14px;padding:14px;margin-bottom:10px;cursor:pointer}
+.check input{width:22px;height:22px;flex:none;accent-color:var(--coral);margin-top:1px}
+.check span{font-size:13.5px;line-height:1.45;color:#d9d2d3}
+.check b{color:var(--white)}
+
+/* Botones */
+.actions{position:sticky;bottom:0;padding:14px 20px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(14,11,12,0),var(--black) 30%);display:flex;gap:10px}
+.btn{
+  flex:1;font:inherit;font-weight:800;font-size:17px;border:0;border-radius:99px;padding:17px 22px;cursor:pointer;
+  background:var(--coral);color:var(--black);display:flex;align-items:center;justify-content:center;gap:10px;transition:.2s
+}
+.btn:hover{background:#ff8189}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.6;cursor:wait}
+.btn svg{width:20px;height:20px}
+.btn.ghost{flex:none;background:transparent;color:var(--white);border:2px solid #fff;width:58px;padding:0}
+.btn.wa{background:var(--ok);color:#fff;text-decoration:none}
+.hidden{display:none!important}
+
+/* Final */
+.done-card{text-align:center;padding-top:10px}
+.crown{width:96px;height:96px;margin:10px auto 14px;border-radius:50%;background:var(--coral);display:grid;place-items:center;animation:pop .6s cubic-bezier(.2,1.6,.4,1) both}
+.crown svg{width:50px;height:50px;fill:var(--black)}
+@keyframes pop{from{transform:scale(0)}}
+.reward{background:var(--blush);color:var(--black);border-radius:var(--radius);padding:18px;margin:20px 0;text-align:left}
+.reward .t{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.12em;font-size:12px;color:var(--coral-dark)}
+.reward .v{font-family:'Oswald',sans-serif;font-size:28px;text-transform:uppercase;line-height:1.05;margin-top:4px}
+.reward p{font-size:14px;margin-top:6px;color:#4a3e40}
+.next{display:flex;gap:12px;align-items:center;background:#171213;border:1px solid #2c2426;border-radius:14px;padding:14px;text-align:left;margin-bottom:12px}
+.next svg{width:26px;height:26px;stroke:var(--coral);fill:none;stroke-width:1.8;flex:none}
+.next small{color:#a99fa1;display:block;font-size:12.5px}
+.next b{font-size:16px}
+/* Sorteo navidad */
+.xmas{position:relative;overflow:hidden;background:var(--coral);color:var(--black);border-radius:var(--radius);padding:16px 16px 14px;margin:0 0 22px}
+.xmas:after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.18)}
+.xmas .t{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.14em;font-size:12px;font-weight:600}
+.xmas .h{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:24px;line-height:1.05;margin:3px 0 10px}
+.prize{display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,.55);border-radius:12px;padding:10px 12px;margin-top:8px;position:relative;z-index:1}
+.prize .n{font-size:20px;line-height:1}
+.prize b{display:block;font-size:14.5px}
+.prize small{font-size:12.5px;color:#3a1c1e}
+.ticket{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:12px;border-top:2px dashed rgba(14,11,12,.35);position:relative;z-index:1}
+.ticket small{font-size:12px;font-weight:600}
+.ticket b{font-family:'Oswald',sans-serif;font-size:22px;letter-spacing:.08em}
+.social{margin:22px 0 6px;text-align:center}
+.social .t{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.16em;font-size:12px;color:var(--coral);margin-bottom:12px}
+.social .icons{display:flex;justify-content:center;gap:12px}
+.social a{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#171213;border:1px solid #2c2426;color:var(--white);transition:.2s}
+.social a:hover{background:var(--coral);color:var(--black);border-color:var(--coral)}
+.social a svg{width:22px;height:22px;fill:currentColor}
+.social a.web{width:auto;height:auto;border-radius:0;background:none;border:0;border-bottom:2px solid var(--coral);display:inline-block;margin-top:14px;color:var(--white);font-weight:700;text-decoration:none;border-bottom:2px solid var(--coral);padding-bottom:2px}
+footer{text-align:center;color:#7d7375;font-size:12px;padding:6px 20px 20px}
+canvas#confetti{position:fixed;inset:0;pointer-events:none;z-index:50}
+.hp{position:absolute;left:-9999px}
+@media (min-width:600px){h1{font-size:56px}main{padding-top:20px}}
+</style>
+</head>
+<body>
+<canvas id="confetti"></canvas>
+<div class="wrap">
+  <div class="topbar">Local en Comas, Lima · Atención a domicilio</div>
+  <header><img src="data:image/png;base64,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" alt="Reinasoft Salón"></header>
+
+  <div class="progress" id="progress">
+    <div class="progress-row">
+      <div class="level" id="levelTxt">Paso 1 de 5</div>
+      <div class="points" id="points"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.6L21 9.3l-5 4.6 1.4 7.1L12 17.3 6.6 21l1.4-7.1-5-4.6 6.4-.7z"/></svg><span id="ptsVal">0</span> pts</div>
+    </div>
+    <div class="bar"><i id="barFill"></i></div>
+    <div class="dots" id="dots"></div>
+  </div>
+
+  <form id="form" novalidate autocomplete="on">
+  <main>
+    <!-- 0 · Bienvenida -->
+    <section class="step active" data-step="0">
+      <div class="eyebrow">Club Reina</div>
+      <h1>Únete y gana<br><em>beneficios</em></h1>
+      <p class="lead">Completa tus datos en menos de 1 minuto. Te avisamos cuándo toca tu retoque y te consentimos en tu cumpleaños.</p>
+      <div class="xmas">
+        <div class="t">🎄 Sorteo de Navidad<span class="rdate"></span></div>
+        <div class="h">Regístrate y participa automáticamente</div>
+        <div class="prize"><span class="n">🏆</span><div><b>1 alisado Keratinplex</b><small>Para ti, o regálaselo a quien quieras (transferible)</small></div></div>
+        <div class="prize"><span class="n">🎁</span><div><b>1 mascarilla de cabello + Caja sorpresa ReinaSoft</b><small>Con varias cositas dentro</small></div></div>
+      </div>
+      <div class="perks">
+        <div class="perk"><div class="ic"><svg viewBox="0 0 24 24"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7z"/></svg></div><div><b>Regalo de cumpleaños</b><small>Un detalle especial en tu mes</small></div></div>
+        <div class="perk"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><div><b>Recordatorio de retoque</b><small>Tu liso siempre perfecto</small></div></div>
+        <div class="perk"><div class="ic"><svg viewBox="0 0 24 24"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.5"/></svg></div><div><b>Promos exclusivas</b><small>Primero para las del Club</small></div></div>
+      </div>
+    </section>
+
+    <!-- 1 · Nombre -->
+    <section class="step" data-step="1">
+      <div class="eyebrow">Paso 1 · +20 pts</div>
+      <h2>¿Cómo te <em>llamas?</em></h2>
+      <p class="lead">Para saludarte por tu nombre.</p>
+      <div class="field">
+        <label class="lbl" for="nombre">Nombre</label>
+        <input class="input" id="nombre" name="nombre" autocomplete="given-name" placeholder="Ej. Valeria" required>
+        <div class="msg">Escribe tu nombre</div>
+      </div>
+      <div class="field">
+        <label class="lbl" for="apellido">Apellido</label>
+        <input class="input" id="apellido" name="apellido" autocomplete="family-name" placeholder="Ej. Torres" required>
+        <div class="msg">Escribe tu apellido</div>
+      </div>
+      <input class="hp" type="text" name="empresa" tabindex="-1" autocomplete="off" aria-hidden="true">
+    </section>
+
+    <!-- 2 · Contacto -->
+    <section class="step" data-step="2">
+      <div class="eyebrow">Paso 2 · +20 pts</div>
+      <h2>¿Dónde te <em>avisamos?</em></h2>
+      <p class="lead">Solo para recordatorios y promos. Nada de spam.</p>
+      <div class="field">
+        <label class="lbl" for="whatsapp">WhatsApp</label>
+        <div class="phone">
+          <div class="pre">🇵🇪 +51</div>
+          <input class="input" id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="9XX XXX XXX" maxlength="11" required>
+        </div>
+        <div class="msg">Ingresa un celular de 9 dígitos que empiece con 9</div>
+      </div>
+      <div class="field">
+        <label class="lbl" for="email">Correo electrónico</label>
+        <input class="input" id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="tucorreo@gmail.com" required>
+        <div class="msg">Revisa tu correo (ej. nombre@gmail.com)</div>
+      </div>
+    </section>
+
+    <!-- 3 · Cumpleaños -->
+    <section class="step" data-step="3">
+      <div class="eyebrow">Paso 3 · +20 pts</div>
+      <h2>¿Cuándo es tu <em>cumple?</em></h2>
+      <p class="lead">Te tendremos un regalito ese mes.</p>
+      <div class="field">
+        <label class="lbl">Fecha de nacimiento</label>
+        <div class="row3">
+          <select class="input" id="dia" name="dia" aria-label="Día" required><option value="">Día</option></select>
+          <select class="input" id="mes" name="mes" aria-label="Mes" required><option value="">Mes</option></select>
+          <select class="input" id="anio" name="anio" aria-label="Año" required><option value="">Año</option></select>
+        </div>
+        <div class="msg">Elige una fecha válida</div>
+      </div>
+      <div class="badge" id="ageBadge"><svg viewBox="0 0 24 24"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7"/></svg><span id="ageTxt"></span></div>
+    </section>
+
+    <!-- 4 · Cabello -->
+    <section class="step" data-step="4">
+      <div class="eyebrow">Paso 4 · +20 pts</div>
+      <h2>Cuéntanos de tu <em>cabello</em></h2>
+      <p class="lead">Así te recomendamos lo ideal para ti.</p>
+      <div class="sub">¿Cómo está tu cabello hoy?</div>
+      <div class="chips" data-group="tipo_cabello">
+        <div class="chip"><input type="radio" name="tipo_cabello" id="tc1" value="Natural"><label for="tc1"><span class="tick"></span>Natural<small>Sin químicos</small></label></div>
+        <div class="chip"><input type="radio" name="tipo_cabello" id="tc2" value="Tinturado"><label for="tc2"><span class="tick"></span>Tinturado<small>Con color</small></label></div>
+        <div class="chip"><input type="radio" name="tipo_cabello" id="tc3" value="Decolorado / mechas"><label for="tc3"><span class="tick"></span>Con mechas<small>Decolorado o balayage</small></label></div>
+        <div class="chip"><input type="radio" name="tipo_cabello" id="tc4" value="Con alisado previo"><label for="tc4"><span class="tick"></span>Ya alisado<small>Alisado anterior</small></label></div>
+      </div>
+      <div class="sub">Largo</div>
+      <div class="chips" data-group="largo">
+        <div class="chip"><input type="radio" name="largo" id="lg1" value="Corto"><label for="lg1"><span class="tick"></span>Corto<small>Hasta el hombro</small></label></div>
+        <div class="chip"><input type="radio" name="largo" id="lg2" value="Medio"><label for="lg2"><span class="tick"></span>Medio<small>Debajo del hombro</small></label></div>
+        <div class="chip"><input type="radio" name="largo" id="lg3" value="Largo"><label for="lg3"><span class="tick"></span>Largo<small>Media espalda</small></label></div>
+        <div class="chip"><input type="radio" name="largo" id="lg4" value="Extra largo"><label for="lg4"><span class="tick"></span>Extra largo<small>Cintura o más</small></label></div>
+      </div>
+      <div class="msg" id="msg4">Elige una opción en cada pregunta</div>
+    </section>
+
+    <!-- 5 · Servicio -->
+    <section class="step" data-step="5">
+      <div class="eyebrow">Paso 5 · ¡Último!</div>
+      <h2>¿Qué te <em>hiciste?</em></h2>
+      <p class="lead">Así sabemos cuándo te toca tu próxima cita.</p>
+      <div class="chips" data-group="servicio">
+        <div class="chip"><input type="radio" name="servicio" id="sv1" value="Nanoplex"><label for="sv1"><span class="tick"></span>Nanoplex<small>Alisado</small></label></div>
+        <div class="chip"><input type="radio" name="servicio" id="sv2" value="Keratinplex"><label for="sv2"><span class="tick"></span>Keratinplex<small>Alisado</small></label></div>
+        <div class="chip"><input type="radio" name="servicio" id="sv3" value="Color y balayage"><label for="sv3"><span class="tick"></span>Color / balayage<small>Coloración</small></label></div>
+        <div class="chip"><input type="radio" name="servicio" id="sv4" value="Otro"><label for="sv4"><span class="tick"></span>Otro<small>Corte, tratamiento…</small></label></div>
+      </div>
+      <div class="field" style="margin-top:16px">
+        <label class="lbl" for="fecha_servicio">Fecha del servicio</label>
+        <input class="input" id="fecha_servicio" name="fecha_servicio" type="date" required>
+      </div>
+      <div class="sub">¿Dónde te atendimos?</div>
+      <div class="chips" data-group="lugar">
+        <div class="chip"><input type="radio" name="lugar" id="lu1" value="Salón (Comas)"><label for="lu1"><span class="tick"></span>En el salón<small>Comas</small></label></div>
+        <div class="chip"><input type="radio" name="lugar" id="lu2" value="A domicilio"><label for="lu2"><span class="tick"></span>A domicilio<small>En mi casa</small></label></div>
+      </div>
+      <div class="field" style="margin-top:14px">
+        <label class="lbl" for="distrito">Distrito <span>(opcional)</span></label>
+        <input class="input" id="distrito" name="distrito" list="distritos" placeholder="Ej. Los Olivos" autocomplete="address-level2">
+        <datalist id="distritos"></datalist>
+      </div>
+      <div class="field">
+        <label class="lbl" for="origen">¿Cómo nos conociste? <span>(opcional)</span></label>
+        <select class="input" id="origen" name="origen">
+          <option value="">Elige una opción</option>
+          <option>Instagram</option><option>TikTok</option><option>Facebook</option><option>Google</option>
+          <option>Recomendación de una amiga</option><option>Pasé por el local</option><option>Otro</option>
+        </select>
+      </div>
+      <div class="msg" id="msg5">Elige el servicio, la fecha y dónde te atendimos</div>
+      <div style="margin-top:18px">
+        <label class="check"><input type="checkbox" id="acepto_datos" name="acepto_datos" value="Sí"><span><b>Acepto el tratamiento de mis datos personales</b> por Reinasoft Salón para gestionar mis citas, conforme a la Ley N.° 29733.</span></label>
+        <label class="check"><input type="checkbox" id="acepto_promos" name="acepto_promos" value="Sí" checked><span>Quiero recibir <b>promociones y beneficios</b> por WhatsApp y correo. Puedo darme de baja cuando quiera.</span></label>
+        <div class="msg" id="msgConsent">Necesitamos tu autorización para guardar tus datos</div>
+      </div>
+    </section>
+
+    <!-- 6 · Final -->
+    <section class="step" data-step="6">
+      <div class="done-card">
+        <div class="crown"><svg viewBox="0 0 24 24"><path d="M3 18h18l-1.5-10-5 4L12 4l-2.5 8-5-4z"/><rect x="3" y="19" width="18" height="2" rx="1"/></svg></div>
+        <div class="eyebrow">¡Ya eres parte del Club!</div>
+        <h2 id="doneTitle">Bienvenida, <em>Reina</em></h2>
+      </div>
+      <div class="xmas">
+        <div class="t">🎄 Sorteo de Navidad<span class="rdate"></span></div>
+        <div class="h">¡Ya estás participando!</div>
+        <div class="prize"><span class="n">🏆</span><div><b>1 alisado Keratinplex</b><small>Para ti o transferible</small></div></div>
+        <div class="prize"><span class="n">🎁</span><div><b>1 mascarilla de cabello + Caja sorpresa ReinaSoft</b><small>Con varias cositas dentro</small></div></div>
+        <div class="ticket"><small>Tu código de participación<br>Guárdalo con una captura 📸</small><b id="ticketCode">—</b></div>
+      </div>
+      <div class="reward">
+        <div class="t">Tu beneficio de bienvenida</div>
+        <div class="v" id="rewardTxt"></div>
+        <p id="rewardNote"></p>
+      </div>
+      <div class="next"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><div><small>Tu próxima cita sugerida</small><b id="nextDate">—</b></div></div>
+      <div class="next"><svg viewBox="0 0 24 24"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7"/></svg><div><small>Tu regalo de cumpleaños</small><b id="bdayTxt">—</b></div></div>
+      <div class="social">
+        <div class="t">Síguenos y entérate del ganador</div>
+        <div class="icons">
+          <a href="https://www.instagram.com/reinasoftsalon/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM21.9 7.1c-.1-1.6-.4-3-1.6-4.2S17.6 1.4 16 1.3C14.3 1.2 9.7 1.2 8 1.3c-1.6.1-3 .4-4.2 1.6S2.2 5.5 2.1 7.1C2 8.8 2 13.2 2.1 15c.1 1.6.4 3 1.6 4.2s2.6 1.5 4.2 1.6c1.7.1 6.3.1 8 0 1.6-.1 3-.4 4.2-1.6s1.5-2.6 1.6-4.2c.1-1.8.1-6.2.2-7.9zm-2.2 9.8a3.3 3.3 0 0 1-1.8 1.8c-1.3.5-4.3.4-5.7.4s-4.4.1-5.7-.4a3.3 3.3 0 0 1-1.8-1.8c-.5-1.3-.4-4.3-.4-5.7s-.1-4.4.4-5.7A3.3 3.3 0 0 1 6.5 3.7c1.3-.5 4.3-.4 5.7-.4s4.4-.1 5.7.4a3.3 3.3 0 0 1 1.8 1.8c.5 1.3.4 4.3.4 5.7s.1 4.4-.4 5.7z"/></svg></a>
+          <a href="https://www.tiktok.com/@betsahid.reina.me" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.2V2h-3.4v13.4a2.9 2.9 0 1 1-2-2.7V9.2a6.3 6.3 0 1 0 5.4 6.2V8.6a8.2 8.2 0 0 0 4.8 1.5V6.8a4.9 4.9 0 0 1-1-.1z"/></svg></a>
+          <a href="https://www.facebook.com/AlisadosReinaSoft" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M14 8V6.2c0-.8.2-1.2 1.4-1.2H17V2h-2.6C11.3 2 10 3.6 10 6.3V8H8v3h2v11h4V11h2.7l.3-3z"/></svg></a>
+          <a href="https://wa.me/51959552657" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg></a>
+        </div>
+        <a class="web" href="https://reinasoft.com/" target="_blank" rel="noopener">Visita reinasoft.com →</a>
+      </div>
+    </section>
+  </main>
+
+  <div class="actions" id="actions">
+    <button type="button" class="btn ghost hidden" id="back" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg></button>
+    <button type="button" class="btn" id="next">Empezar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <a class="btn wa hidden" id="waBtn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>Escríbenos por WhatsApp</a>
+  </div>
+  </form>
+  <footer>Reinasoft Salón · Comas, Lima · Tus datos están protegidos</footer>
+</div>
+
+<script>
+/* =========================================================
+   CONFIGURACIÓN — edita solo esta parte
+   ========================================================= */
+const CONFIG = {
+  // Pega aquí la URL de tu Apps Script (termina en /exec). Ver guía.
+  SCRIPT_URL: "https://script.google.com/macros/s/AKfycbyOXYHru9BxMFo19I5Nk3IjX9tzSnq332yD9khctKQueyiMJ0oJ1VIG_wOe3oAADMDCvw/exec",
+  WHATSAPP: "51959552657",
+  // Beneficio que verá la clienta al terminar (cámbialo cuando quieras)
+  REWARD_TITLE: "10% de descuento",
+  REWARD_NOTE: "En tu próxima visita. Muestra esta pantalla o menciónalo por WhatsApp.",
+  // Fecha del sorteo de Navidad (ej. "24 de diciembre"). Déjalo vacío si aún no está definida.
+  RAFFLE_DATE: "",
+  // Meses sugeridos para la próxima cita según servicio
+  NEXT_VISIT_MONTHS: { "Nanoplex": 4, "Keratinplex": 4, "Color y balayage": 2, "Otro": 2 }
+};
+/* ========================================================= */
+
+const MESES=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+const DISTRITOS=["Comas","Los Olivos","Independencia","San Martín de Porres","Puente Piedra","Carabayllo","Ancón","Santa Rosa","Rímac","Cercado de Lima","Breña","Jesús María","Lince","Pueblo Libre","Magdalena","San Miguel","San Isidro","Miraflores","Surquillo","Barranco","Santiago de Surco","San Borja","La Molina","Ate","Santa Anita","El Agustino","San Juan de Lurigancho","San Juan de Miraflores","Villa María del Triunfo","Villa El Salvador","Chorrillos","La Victoria","San Luis","Chaclacayo","Lurigancho-Chosica","Callao","Ventanilla","Bellavista","La Perla"];
+const TOTAL=5, PTS=20;
+let step=0, points=0, earned=new Set();
+
+const $=s=>document.querySelector(s);
+const steps=[...document.querySelectorAll('.step')];
+const nextBtn=$('#next'), backBtn=$('#back'), waBtn=$('#waBtn');
+
+/* Rellenar selects */
+(function init(){
+  for(let d=1;d<=31;d++) $('#dia').add(new Option(d,d));
+  MESES.forEach((m,i)=>$('#mes').add(new Option(m,i+1)));
+  const y=new Date().getFullYear();
+  for(let a=y-12;a>=y-85;a--) $('#anio').add(new Option(a,a));
+  DISTRITOS.forEach(d=>{const o=document.createElement('option');o.value=d;$('#distritos').appendChild(o)});
+  $('#fecha_servicio').value=isoToday();
+  $('#fecha_servicio').max=isoToday();
+  const icons=['<path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0"/>','<path d="M4 4h16v16H4zM4 7l8 6 8-6"/>','<path d="M20 12v10H4V12M2 7h20v5H2z"/>','<path d="M12 3c-4 4-6 8-6 12a6 6 0 0 0 12 0c0-4-2-8-6-12z"/>','<path d="M3 18h18l-1.5-10-5 4L12 4l-2.5 8-5-4z"/>'];
+  $('#dots').innerHTML=icons.map(p=>`<span><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:2.4">${p}</svg></span>`).join('');
+  if(CONFIG.RAFFLE_DATE) document.querySelectorAll('.rdate').forEach(e=>e.textContent=' · '+CONFIG.RAFFLE_DATE);
+  render();
+})();
+function isoToday(){const t=new Date();t.setMinutes(t.getMinutes()-t.getTimezoneOffset());return t.toISOString().slice(0,10)}
+
+/* WhatsApp: formato 999 999 999 */
+$('#whatsapp').addEventListener('input',e=>{
+  let v=e.target.value.replace(/\D/g,'');
+  if(v.startsWith('51')&&v.length>9) v=v.slice(2);
+  v=v.slice(0,9);
+  e.target.value=v.replace(/(\d{3})(\d{0,3})(\d{0,3})/,(m,a,b,c)=>[a,b,c].filter(Boolean).join(' '));
+});
+
+/* Edad en vivo */
+['#dia','#mes','#anio'].forEach(s=>$(s).addEventListener('change',showAge));
+function birth(){const d=+$('#dia').value,m=+$('#mes').value,y=+$('#anio').value;if(!d||!m||!y)return null;const dt=new Date(y,m-1,d);return dt.getMonth()===m-1?dt:false}
+function age(b){const t=new Date();let a=t.getFullYear()-b.getFullYear();if(t<new Date(t.getFullYear(),b.getMonth(),b.getDate()))a--;return a}
+function showAge(){
+  const b=birth(),bd=$('#ageBadge');
+  if(!b){bd.classList.remove('show');return}
+  const t=new Date(); let nb=new Date(t.getFullYear(),b.getMonth(),b.getDate()); if(nb<new Date(t.getFullYear(),t.getMonth(),t.getDate())) nb.setFullYear(nb.getFullYear()+1);
+  const days=Math.round((nb-new Date(t.getFullYear(),t.getMonth(),t.getDate()))/864e5);
+  $('#ageTxt').textContent= days===0?'¡Hoy es tu cumpleaños! 🎉 Feliz día.':`¡Anotado! Faltan ${days} días para tu cumple.`;
+  bd.classList.add('show');
+}
+
+/* Auto-avance suave al elegir chips (mantiene juego rápido) */
+document.querySelectorAll('.chip input').forEach(i=>i.addEventListener('change',()=>{
+  if(step===4 && val('tipo_cabello') && val('largo')) setTimeout(go,350);
+}));
+function val(n){const e=document.querySelector(`input[name="${n}"]:checked`);return e?e.value:''}
+
+/* Validaciones por paso */
+function setErr(input,bad){input.classList.toggle('err',bad);const m=input.closest('.field')?.querySelector('.msg');if(m)m.classList.toggle('show',bad);return !bad}
+function validate(){
+  if(step===1){
+    const a=setErr($('#nombre'),$('#nombre').value.trim().length<2);
+    const b=setErr($('#apellido'),$('#apellido').value.trim().length<2);
+    return a&&b;
+  }
+  if(step===2){
+    const w=$('#whatsapp').value.replace(/\D/g,'');
+    const a=setErr($('#whatsapp'),!/^9\d{8}$/.test(w));
+    const b=setErr($('#email'),!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test($('#email').value.trim()));
+    return a&&b;
+  }
+  if(step===3){
+    const b=birth(); const ok=b&&age(b)>=12&&age(b)<=90;
+    ['#dia','#mes','#anio'].forEach(s=>$(s).classList.toggle('err',!ok));
+    $('#dia').closest('.field').querySelector('.msg').classList.toggle('show',!ok);
+    return !!ok;
+  }
+  if(step===4){const ok=val('tipo_cabello')&&val('largo');$('#msg4').classList.toggle('show',!ok);return !!ok}
+  if(step===5){
+    const ok=val('servicio')&&$('#fecha_servicio').value&&val('lugar');
+    $('#msg5').classList.toggle('show',!ok);
+    const c=$('#acepto_datos').checked;$('#msgConsent').classList.toggle('show',!c);
+    return !!ok&&c;
+  }
+  return true;
+}
+
+function go(){
+  if(!validate()){nextBtn.animate([{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:260});return}
+  if(step>=1&&step<=5&&!earned.has(step)){earned.add(step);addPoints(PTS)}
+  if(step===5){submit();return}
+  step++;render();
+}
+function back(){if(step>0){step--;render()}}
+nextBtn.addEventListener('click',go);
+backBtn.addEventListener('click',back);
+$('#form').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();go()}});
+
+function addPoints(n){
+  const from=points;points+=n;const el=$('#ptsVal'),p=$('#points');
+  p.classList.remove('bump');void p.offsetWidth;p.classList.add('bump');
+  const t0=performance.now();(function tick(t){const k=Math.min(1,(t-t0)/400);el.textContent=Math.round(from+(points-from)*k);if(k<1)requestAnimationFrame(tick)})(t0);
+}
+
+function render(){
+  steps.forEach((s,i)=>s.classList.toggle('active',i===step));
+  const done=step===6;
+  $('#progress').style.visibility=step===0?'hidden':'visible';
+  $('#levelTxt').textContent=done?'¡Completado!':`Paso ${Math.min(step,TOTAL)} de ${TOTAL}`;
+  $('#barFill').style.width=(done?100:((step-1)/TOTAL)*100)+'%';
+  [...$('#dots').children].forEach((d,i)=>d.classList.toggle('done',done||i<step-1));
+  backBtn.classList.toggle('hidden',step===0||done);
+  nextBtn.classList.toggle('hidden',done);
+  waBtn.classList.toggle('hidden',!done);
+  const labels={0:'Empezar',5:'Unirme al Club'};
+  nextBtn.firstChild.textContent=(labels[step]||'Continuar')+' ';
+  if(step===1) setTimeout(()=>$('#nombre').focus(),300);
+  if(step===2) setTimeout(()=>$('#whatsapp').focus(),300);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function nextVisit(){
+  const m=CONFIG.NEXT_VISIT_MONTHS[val('servicio')]||2;
+  const d=new Date($('#fecha_servicio').value+'T12:00:00');d.setMonth(d.getMonth()+m);return d;
+}
+const fmt=d=>d.toLocaleDateString('es-PE',{day:'numeric',month:'long',year:'numeric'});
+
+async function submit(){
+  nextBtn.disabled=true;nextBtn.firstChild.textContent='Guardando… ';
+  const b=birth(), nv=nextVisit(), url=new URLSearchParams(location.search);
+  const ticket='RS-'+Array.from(crypto.getRandomValues(new Uint8Array(4)),n=>'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[n%32]).join('');
+  const data={
+    nombre:$('#nombre').value.trim(), apellido:$('#apellido').value.trim(),
+    whatsapp:'+51'+$('#whatsapp').value.replace(/\D/g,''), email:$('#email').value.trim().toLowerCase(),
+    fecha_nacimiento:`${b.getFullYear()}-${String(b.getMonth()+1).padStart(2,'0')}-${String(b.getDate()).padStart(2,'0')}`,
+    edad:age(b), mes_cumple:MESES[b.getMonth()],
+    tipo_cabello:val('tipo_cabello'), largo:val('largo'),
+    servicio:val('servicio'), fecha_servicio:$('#fecha_servicio').value, lugar:val('lugar'),
+    proxima_cita:nv.toISOString().slice(0,10),
+    distrito:$('#distrito').value.trim(), origen:$('#origen').value,
+    acepto_datos:'Sí', acepto_promos:$('#acepto_promos').checked?'Sí':'No',
+    sorteo_navidad:'Sí', codigo_sorteo:ticket,
+    fuente:url.get('utm_source')||url.get('ref')||'whatsapp',
+    empresa:document.querySelector('[name=empresa]').value
+  };
+  try{
+    if(CONFIG.SCRIPT_URL.startsWith('http')){
+      await fetch(CONFIG.SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)});
+    } else console.warn('Falta configurar SCRIPT_URL — datos no enviados',data);
+  }catch(e){console.error(e)}
+  // Pantalla final
+  $('#doneTitle').innerHTML=`Bienvenida, <em>${escapeHtml(data.nombre)}</em>`;
+  $('#ticketCode').textContent=ticket;
+  $('#rewardTxt').textContent=CONFIG.REWARD_TITLE;
+  $('#rewardNote').textContent=CONFIG.REWARD_NOTE;
+  $('#nextDate').textContent=fmt(nv);
+  $('#bdayTxt').textContent=`Te escribimos en ${data.mes_cumple} 🎁`;
+  const msg=`Hola Reina 👑 Soy ${data.nombre} ${data.apellido}, ya me uní al Club Reina y estoy en el sorteo de Navidad (código ${ticket}). Quiero mi ${CONFIG.REWARD_TITLE}.`;
+  waBtn.href=`https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(msg)}`;
+  nextBtn.disabled=false; step=6; render(); confetti();
+}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+/* Confeti con colores de marca */
+function confetti(){
+  const c=$('#confetti'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;
+  const cols=['#FC737B','#FFE3E5','#FFFFFF','#E86B72'];
+  const ps=Array.from({length:140},()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height*.5,r:4+Math.random()*6,vy:2+Math.random()*3,vx:-1.5+Math.random()*3,a:Math.random()*6,c:cols[Math.random()*4|0]}));
+  const t0=performance.now();
+  (function f(t){x.clearRect(0,0,c.width,c.height);ps.forEach(p=>{p.y+=p.vy;p.x+=p.vx;p.a+=.1;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;x.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);x.restore()});if(t-t0<3500)requestAnimationFrame(f);else x.clearRect(0,0,c.width,c.height)})(t0);
+}
+</script>
+</body>
+</html>
