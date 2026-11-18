@@ -295,8 +295,9 @@ canvas#confetti{position:fixed;inset:0;pointer-events:none;z-index:50}
       <div class="chips" data-group="servicio">
         <div class="chip"><input type="radio" name="servicio" id="sv1" value="Nanoplex"><label for="sv1"><span class="tick"></span>Nanoplex<small>Alisado</small></label></div>
         <div class="chip"><input type="radio" name="servicio" id="sv2" value="Keratinplex"><label for="sv2"><span class="tick"></span>Keratinplex<small>Alisado</small></label></div>
-        <div class="chip"><input type="radio" name="servicio" id="sv3" value="Color y balayage"><label for="sv3"><span class="tick"></span>Color / balayage<small>Coloración</small></label></div>
-        <div class="chip"><input type="radio" name="servicio" id="sv4" value="Otro"><label for="sv4"><span class="tick"></span>Otro<small>Corte, tratamiento…</small></label></div>
+        <div class="chip"><input type="radio" name="servicio" id="sv3" value="Tinte"><label for="sv3"><span class="tick"></span>Tinte<small>Color</small></label></div>
+        <div class="chip"><input type="radio" name="servicio" id="sv5" value="Balayage"><label for="sv5"><span class="tick"></span>Balayage<small>Iluminación</small></label></div>
+        <div class="chip" style="grid-column:1/-1"><input type="radio" name="servicio" id="sv4" value="Otro"><label for="sv4"><span class="tick"></span>Otro<small>Corte, tratamiento…</small></label></div>
       </div>
       <div class="field" style="margin-top:16px">
         <label class="lbl" for="fecha_servicio">Fecha del servicio</label>
@@ -384,8 +385,8 @@ const CONFIG = {
   REWARD_NOTE: "En tu próxima visita. Muestra esta pantalla o menciónalo por WhatsApp.",
   // Fecha del sorteo de Navidad (ej. "24 de diciembre"). Déjalo vacío si aún no está definida.
   RAFFLE_DATE: "",
-  // Meses sugeridos para la próxima cita según servicio
-  NEXT_VISIT_MONTHS: { "Nanoplex": 4, "Keratinplex": 4, "Color y balayage": 2, "Otro": 2 }
+  // Días para la próxima cita según servicio (igual que en el Panel)
+  NEXT_VISIT_DAYS: { "Keratinplex": 150, "Nanoplex": 365, "Tinte": 45, "Balayage": 120, "Otro": 60 }
 };
 /* ========================================================= */
 
@@ -506,8 +507,8 @@ function render(){
 }
 
 function nextVisit(){
-  const m=CONFIG.NEXT_VISIT_MONTHS[val('servicio')]||2;
-  const d=new Date($('#fecha_servicio').value+'T12:00:00');d.setMonth(d.getMonth()+m);return d;
+  const n=CONFIG.NEXT_VISIT_DAYS[val('servicio')]||60;
+  const d=new Date($('#fecha_servicio').value+'T12:00:00');d.setDate(d.getDate()+n);return d;
 }
 const fmt=d=>d.toLocaleDateString('es-PE',{day:'numeric',month:'long',year:'numeric'});
 
